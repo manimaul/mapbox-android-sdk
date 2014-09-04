@@ -7,6 +7,7 @@ import com.mapbox.mapboxsdk.geometry.BoundingBox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.util.NetworkUtils;
 import com.mapbox.mapboxsdk.util.constants.UtilConstants;
+import com.squareup.okhttp.Cache;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.ResponseCache;
 import java.net.URL;
 import java.util.UUID;
 
@@ -28,7 +28,7 @@ import java.util.UUID;
 public class TileJsonTileLayer extends WebSourceTileLayer {
 
     private JSONObject tileJSON;
-    private ResponseCache cache;
+    private Cache cache;
 
     public TileJsonTileLayer(final String pId, final String url, final boolean enableSSL) {
         super(pId, url, enableSSL);

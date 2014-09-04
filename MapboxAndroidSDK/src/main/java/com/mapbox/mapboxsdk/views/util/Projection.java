@@ -189,6 +189,8 @@ public class Projection implements GeoConstants {
         latLongToPixelXY(latitude, longitude, zoom, out);
         final float worldSize2 = mapSize >> 1;
         out.offset(-worldSize2, -worldSize2);
+        wrapPointsToDateline(out, centerX, zoom);
+
 //        if (Math.abs(out.x - centerX) > Math.abs(out.x - mapSize - centerX)) {
 //            out.x -= mapSize;
 //        }
@@ -264,6 +266,7 @@ public class Projection implements GeoConstants {
         final float zoomDifference = TileLayerConstants.MAXIMUM_ZOOMLEVEL - getZoomLevel();
         out.set((int) (GeometryMath.rightShift(in.x, zoomDifference) + offsetX),
                 (int) (GeometryMath.rightShift(in.y, zoomDifference) + offsetY));
+        wrapPointsToDateline(out, centerX, getZoomLevel());
         return out;
     }
 
@@ -490,6 +493,46 @@ public class Projection implements GeoConstants {
             n -= interval;
         }
         return n;
+    }
+
+    /**
+     * Manipulates point x coordinates to wrap around dateline when point is West of 90W
+     * and East of 90E according to center of MapView being East or West of Prime meridian
+     *
+     */
+    private static void wrapPointsToDateline(final PointF point, final double reference, final float zoomLevel) {
+        //both point.x and reference are in easter hemisphere... do nothing
+        if (reference >= 0 && point.x >= 0)
+            return;
+
+        //both point.x and reference are in western hemisphere... do nothing
+        if (reference <= 0 && point.x <= 0)
+            return;
+
+        //180 degrees longitude in pixels
+        final int oneEightyDegrees = mapSize(zoomLevel) / 2;
+
+        //reference more than 180 degrees longitude from point
+        if (Math.abs(reference) + Math.abs(point.x) >= oneEightyDegrees) {
+            if (reference > point.x) {
+                //reference west of dateline ... wrap point.x east of dateline
+                point.x = (oneEightyDegrees - Math.abs(point.x)) + oneEightyDegrees;
+            } else {
+                //reference east of dateline ... wrap point.x west of dateline
+                point.x = -((oneEightyDegrees - Math.abs(point.x)) + oneEightyDegrees);
+            }
+        }
+    }
+
+    public static boolean wrapsTooFar(final float destination, final float reference, final float zoomLevel) {
+
+        //120 degrees longitude in pixels
+        final int oneTwentyDegrees = mapSize(zoomLevel) / 3;
+
+        return (destination < -oneTwentyDegrees && reference   > 0)  ||
+               (destination > oneTwentyDegrees  && reference   < 0)  ||
+               (reference   < -oneTwentyDegrees && destination > 0)  ||
+               (reference   > oneTwentyDegrees  && destination < 0);
     }
 
     public void rotatePoints(final float[] pRotatePoints) {

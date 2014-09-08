@@ -1593,6 +1593,15 @@ public class MapView extends ViewGroup
     }
 
     public void scrollTo(double x, double y) {
+        int max = Projection.mapSize(mZoomLevel) / 2;
+        if (Math.abs(x) > max) {
+            x = x < 0 ? max : -max;
+        }
+
+        if (Math.abs(y) > max) {
+            y = y < 0 ? max : -max;
+        }
+
         if (mScrollableAreaLimit != null) {
             final RectF currentLimit = mScrollableAreaLimit;
 

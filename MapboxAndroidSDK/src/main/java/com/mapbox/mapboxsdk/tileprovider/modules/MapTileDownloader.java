@@ -2,7 +2,6 @@ package com.mapbox.mapboxsdk.tileprovider.modules;
 
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import com.mapbox.mapboxsdk.geometry.BoundingBox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.tileprovider.MapTile;
@@ -145,16 +144,16 @@ public class MapTileDownloader extends MapTileModuleLayerBase {
         @Override
         public Drawable loadTile(final MapTileRequestState aState) throws CantContinueException {
             final MapTile tile = aState.getMapTile();
-            Log.d(TAG, "loadTile() with tile = '" + tile + "'");
+            //Log.d(TAG, "loadTile() with tile = '" + tile + "'");
             if (mTileCache != null && mTileCache.get().containsTileInDiskCache(tile)) {
-                Log.d(TAG, "tile found in Disk Cache, so returning it. tile = '" + tile + "'");
+                //Log.d(TAG, "tile found in Disk Cache, so returning it. tile = '" + tile + "'");
                 return mTileCache.get().getMapTileFromDisk(tile);
             }
             TileLayer tileLayer = mTileSource.get();
             Drawable result =
                     (tileLayer != null) ? tileLayer.getDrawableFromTile(MapTileDownloader.this,
                             tile, hdpi) : null;
-            Log.d(TAG, "tileLayer.getDrawable() returning result = '" + result + "'");
+            //Log.d(TAG, "tileLayer.getDrawable() returning result = '" + result + "'");
             return result;
         }
     }

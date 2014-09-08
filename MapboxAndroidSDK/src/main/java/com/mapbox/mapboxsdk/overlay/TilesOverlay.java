@@ -11,7 +11,6 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.util.Log;
 import com.mapbox.mapboxsdk.tileprovider.MapTile;
 import com.mapbox.mapboxsdk.tileprovider.MapTileLayerBase;
 import com.mapbox.mapboxsdk.util.GeometryMath;
@@ -113,7 +112,7 @@ public class TilesOverlay extends SafeDrawOverlay {
     @Override
     protected void drawSafe(final ISafeCanvas c, final MapView mapView, final boolean shadow) {
 
-        Log.d(TAG, "drawSafe() called with shadow = '" + shadow + "'");
+        //Log.d(TAG, "drawSafe() called with shadow = '" + shadow + "'");
 
         if (shadow) {
             return;
@@ -132,12 +131,12 @@ public class TilesOverlay extends SafeDrawOverlay {
         int tileSize = Projection.getTileSize();
         // Draw the tiles!
         if (tileSize > 0) {
-            Log.d(TAG, "drawSafe(), start drawing tiles!");
+            //Log.d(TAG, "drawSafe(), start drawing tiles!");
             drawLoadingTile(c.getSafeCanvas(), mapView, zoomLevel, mClipRect);
             drawTiles(c.getSafeCanvas(), zoomLevel, tileSize, mViewPort, mClipRect);
-            Log.d(TAG, "drawSafe(), done drawing tiles!");
+            //Log.d(TAG, "drawSafe(), done drawing tiles!");
         } else {
-            Log.d(TAG, "tileSize is not > 0, so not drawing tiles.");
+            //Log.d(TAG, "tileSize is not > 0, so not drawing tiles.");
         }
 
         if (UtilConstants.DEBUGMODE && mapView.getScrollableAreaLimit() != null) {
@@ -176,7 +175,7 @@ public class TilesOverlay extends SafeDrawOverlay {
     public void drawTiles(final Canvas c, final float zoomLevel, final int tileSizePx,
                           final Rect viewPort, final Rect pClipRect) {
 
-        Log.d(TAG, "drawTiles() start.");
+        //Log.d(TAG, "drawTiles() start.");
         mTileLooper.loop(c, mTileProvider.getCacheKey(), zoomLevel, tileSizePx, viewPort, pClipRect);
 
         // draw a cross at center in debug mode
@@ -189,7 +188,7 @@ public class TilesOverlay extends SafeDrawOverlay {
             canvas.drawLine(centerPoint.x - 9, centerPoint.y, centerPoint.x + 9, centerPoint.y,
                     mDebugPaint);
         }
-        Log.d(TAG, "drawTiles() done.");
+        //Log.d(TAG, "drawTiles() done.");
     }
 
     private final TileLooper mTileLooper = new TileLooper() {
@@ -227,7 +226,7 @@ public class TilesOverlay extends SafeDrawOverlay {
                 drawable.setBounds(mTileRect);
                 drawable.draw(pCanvas);
             } else {
-                Log.w(TAG, "tile should have been drawn to canvas, but it was null.  tile = '" + pTile + "'");
+                //Log.w(TAG, "tile should have been drawn to canvas, but it was null.  tile = '" + pTile + "'");
             }
 
             if (UtilConstants.DEBUGMODE) {
@@ -289,7 +288,7 @@ public class TilesOverlay extends SafeDrawOverlay {
                 mLoadingTilePaint = new SafePaint();
                 mLoadingTilePaint.setShader(new BitmapShader(mLoadingTileBitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT));
             } catch (final OutOfMemoryError e) {
-                Log.e(TAG, "OutOfMemoryError getting loading tile");
+                //Log.e(TAG, "OutOfMemoryError getting loading tile");
                 System.gc();
             }
         }
@@ -324,7 +323,7 @@ public class TilesOverlay extends SafeDrawOverlay {
         final long startMs = System.currentTimeMillis();
 
         if (UtilConstants.DEBUGMODE) {
-            Log.d(TAG, "rescale tile cache from " + pOldZoomLevel + " to " + pNewZoomLevel);
+            //Log.d(TAG, "rescale tile cache from " + pOldZoomLevel + " to " + pNewZoomLevel);
         }
 
         final int tileSize = Projection.getTileSize();
@@ -338,7 +337,7 @@ public class TilesOverlay extends SafeDrawOverlay {
 
         final long endMs = System.currentTimeMillis();
         if (UtilConstants.DEBUGMODE) {
-            Log.d(TAG, "Finished rescale in " + (endMs - startMs) + "ms");
+            //Log.d(TAG, "Finished rescale in " + (endMs - startMs) + "ms");
         }
     }
 
@@ -389,7 +388,7 @@ public class TilesOverlay extends SafeDrawOverlay {
                 try {
                     handleScaleTile(pCacheKey, pTileSizePx, pTile, pX, pY);
                 } catch (final OutOfMemoryError e) {
-                    Log.e(TAG, "OutOfMemoryError rescaling cache");
+                    //Log.e(TAG, "OutOfMemoryError rescaling cache");
                 }
             }
         }
@@ -449,7 +448,7 @@ public class TilesOverlay extends SafeDrawOverlay {
                     final Canvas canvas = new Canvas(bitmap);
                     canvas.drawBitmap(oldBitmap, mSrcRect, mDestRect, null);
                     mNewTiles.put(pTile, bitmap);
-                    Log.d(TAG, "rescaled new tile : " + pTile);
+                    //Log.d(TAG, "rescaled new tile : " + pTile);
 
                 }
             }

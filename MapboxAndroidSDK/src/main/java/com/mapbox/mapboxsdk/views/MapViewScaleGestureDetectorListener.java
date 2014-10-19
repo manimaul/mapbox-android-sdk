@@ -1,5 +1,6 @@
 package com.mapbox.mapboxsdk.views;
 
+import android.os.Handler;
 import android.view.ScaleGestureDetector;
 
 /**
@@ -70,11 +71,21 @@ public class MapViewScaleGestureDetectorListener
         if (!scaling) {
             return;
         }
-        float preZoom = this.mapView.getZoomLevel(false);
-        float newZoom = (float) (Math.log(currentScale) / Math.log(2d) + preZoom);
-        this.mapView.mTargetZoomLevel.set(Float.floatToIntBits(newZoom));
-        this.mapView.getController().onAnimationEnd();
-        scaling = false;
+
+        //delaying the "end" will prevent some crazy scroll events when finishing
+        //scaling by getting 2 fingers very close to each other
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                float preZoom = mapView.getZoomLevel(false);
+                float newZoom = (float) (Math.log(currentScale) / Math.log(2d) + preZoom);
+                mapView.mTargetZoomLevel.set(Float.floatToIntBits(newZoom));
+                mapView.getController().onAnimationEnd();
+                scaling = false;
+            }
+        }, 100);
+
     }
 
     private static String TAG = "Mapbox scaleDetector";

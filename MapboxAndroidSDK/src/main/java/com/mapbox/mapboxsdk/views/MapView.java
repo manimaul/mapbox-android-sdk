@@ -128,7 +128,7 @@ public class MapView extends ViewGroup implements MapViewConstants, MapEventsRec
     protected final Scroller mScroller;
     protected boolean mIsFlinging;
 
-    private final AtomicInteger mTargetZoomLevel = new AtomicInteger();
+    public final AtomicInteger mTargetZoomLevel = new AtomicInteger();
     private final AtomicBoolean mIsAnimating = new AtomicBoolean(false);
 
     private final MapController mController;

@@ -103,7 +103,7 @@ public class MapTileLayerArray extends MapTileLayerBase {
      */
     private boolean tileUnavailable(final MapTile pTile) {
         if (mUnaccessibleTiles.size() > 0) {
-            if (networkAvailable()) {
+            if (getTileSource().worksOffline() ||  networkAvailable()) {
                 mUnaccessibleTiles.clear();
             } else if (mUnaccessibleTiles.contains(pTile)) {
                 return true;
@@ -188,7 +188,7 @@ public class MapTileLayerArray extends MapTileLayerBase {
             synchronized (mWorking) {
                 mWorking.remove(aState.getMapTile());
             }
-            if (!networkAvailable()) {
+            if (getTileSource().worksOffline() || !networkAvailable()) {
                 mUnaccessibleTiles.add(aState.getMapTile());
             }
             super.mapTileRequestFailed(aState);
@@ -233,7 +233,7 @@ public class MapTileLayerArray extends MapTileLayerBase {
             if (provider != null) {
                 providerDoesntExist = !this.getProviderExists(provider);
                 providerCantGetDataConnection =
-                        !useDataConnection() && provider.getUsesDataConnection();
+                        !useDataConnection() && (provider.getUsesDataConnection());
                 int zoomLevel = aState.getMapTile().getZ();
                 providerCantServiceZoomlevel = zoomLevel > provider.getMaximumZoomLevel()
                         || zoomLevel < provider.getMinimumZoomLevel();

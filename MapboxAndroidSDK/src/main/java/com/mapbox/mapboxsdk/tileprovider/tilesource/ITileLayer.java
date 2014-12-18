@@ -104,4 +104,10 @@ public interface ITileLayer {
      * @return the cache key
      */
     public String getCacheKey();
+
+    /**
+     * //todo: hot-fix - remove after proper implementation of offline layer
+     * @return whether this layer can function offline
+     */
+    public boolean worksOffline();
 }

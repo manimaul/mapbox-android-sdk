@@ -16,6 +16,7 @@ public class TileLayer implements ITileLayer, TileLayerConstants, MapViewConstan
     protected String mDescription;
     protected String mAttribution;
     protected String mLegend;
+    private  boolean worksOffline;
 
     protected float mMinimumZoomLevel = TileLayerConstants.MINIMUM_ZOOMLEVEL;
     protected float mMaximumZoomLevel = TileLayerConstants.MAXIMUM_ZOOMLEVEL;
@@ -26,6 +27,7 @@ public class TileLayer implements ITileLayer, TileLayerConstants, MapViewConstan
     public TileLayer(final String pId, final String aUrl) {
         mUrl = aUrl;
         mCacheKey = pId;
+        worksOffline = false;
     }
 
     /**
@@ -34,6 +36,15 @@ public class TileLayer implements ITileLayer, TileLayerConstants, MapViewConstan
     public TileLayer setURL(final String aUrl) {
         mUrl = aUrl;
         return this;
+    }
+
+    @Override
+    public boolean worksOffline() {
+        return worksOffline;
+    }
+
+    public void setWorksOffline(boolean worksOffline) {
+        this.worksOffline = worksOffline;
     }
 
     /**

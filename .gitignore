@@ -14,8 +14,9 @@ test/assets/
 
 local.properties
 *.iml
+.DS_Store
 
-gen
+≈gen
 
 bin
 

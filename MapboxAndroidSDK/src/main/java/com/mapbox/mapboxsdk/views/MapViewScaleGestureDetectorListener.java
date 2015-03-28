@@ -10,7 +10,7 @@ import android.view.ScaleGestureDetector;
  */
 public class MapViewScaleGestureDetectorListener implements ScaleGestureDetector.OnScaleGestureListener {
 
-    private static String TAG = "MapViewScaleGestureDetectorListener";
+    private static String TAG = "MapViewScaleListener";
 
     /**
      * This is the active focal point in terms of the viewport. Could be a local

@@ -210,8 +210,8 @@ public class MapTileCache implements TileLayerConstants {
         // Check if media is mounted or storage is built-in, if so, try and use external cache dir
         // otherwise use internal cache dir
         final String cachePath =
-                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                        || (!Environment.isExternalStorageRemovable())
+                context.getExternalCacheDir() != null && (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                        || (!Environment.isExternalStorageRemovable()))
                         ? context.getExternalCacheDir().getPath()
                         : context.getCacheDir().getPath();
         Log.i(TAG, "cachePath: '" + cachePath + "'");

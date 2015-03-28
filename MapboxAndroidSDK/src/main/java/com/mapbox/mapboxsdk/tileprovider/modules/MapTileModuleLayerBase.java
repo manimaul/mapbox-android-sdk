@@ -2,6 +2,7 @@ package com.mapbox.mapboxsdk.tileprovider.modules;
 
 import android.graphics.drawable.Drawable;
 import android.os.Process;
+import android.util.Log;
 import com.mapbox.mapboxsdk.geometry.BoundingBox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.tileprovider.MapTile;
@@ -130,8 +131,8 @@ public abstract class MapTileModuleLayerBase implements TileLayerConstants {
      */
     public MapTileModuleLayerBase(int pThreadPoolSize, final int pPendingQueueSize) {
         if (pPendingQueueSize < pThreadPoolSize) {
-            //Log.w(TAG,
-            //        "The pending queue size is smaller than the thread pool size. Automatically reducing the thread pool size.");
+            Log.w(TAG,
+                    "The pending queue size is smaller than the thread pool size. Automatically reducing the thread pool size.");
             pThreadPoolSize = pPendingQueueSize;
         }
         mExecutor = Executors.newFixedThreadPool(pThreadPoolSize,
@@ -160,17 +161,14 @@ public abstract class MapTileModuleLayerBase implements TileLayerConstants {
      */
     public void loadMapTileAsync(final MapTileRequestState pState) {
         synchronized (mQueueLockObject) {
-                //Log.d(TAG, "MapTileModuleLayerBase.loadMaptileAsync() on provider: "
-                //        + getName()
-                //        + " for tile: "
-                //        + pState.getMapTile());
-                //if (mPending.containsKey(pState.getMapTile())) {
-                    //Log.d(TAG,
-                    //        "MapTileModuleLayerBase.loadMaptileAsync() tile already exists in request queue for modular provider. Moving to front of queue.");
-                //} else {
-                    //Log.d(TAG,
-                    //        "MapTileModuleLayerBase.loadMaptileAsync() adding tile to request queue for modular provider.");
-                //}
+/*
+                Log.d(TAG, "MapTileModuleLayerBase.loadMaptileAsync() on provider: " + getName() + " for tile: " + pState.getMapTile());
+                if (mPending.containsKey(pState.getMapTile())) {
+                    Log.d(TAG, "MapTileModuleLayerBase.loadMaptileAsync() tile already exists in request queue for modular provider. Moving to front of queue.");
+                } else {
+                    Log.d(TAG, "MapTileModuleLayerBase.loadMaptileAsync() adding tile to request queue for modular provider.");
+                }
+*/
             // this will put the tile in the queue, or move it to the front of
             // the queue if it's already present
             mPending.put(pState.getMapTile(), pState);
@@ -179,7 +177,7 @@ public abstract class MapTileModuleLayerBase implements TileLayerConstants {
         try {
             mExecutor.execute(getTileLoader());
         } catch (final RejectedExecutionException e) {
-            //Log.w(TAG, "RejectedExecutionException", e);
+            Log.w(TAG, "RejectedExecutionException", e);
         }
     }
 
@@ -207,10 +205,10 @@ public abstract class MapTileModuleLayerBase implements TileLayerConstants {
     void removeTileFromQueues(final MapTile mapTile) {
         synchronized (mQueueLockObject) {
             if (DEBUG_TILE_PROVIDERS) {
-                //Log.d(TAG, "MapTileModuleLayerBase.removeTileFromQueues() on provider: "
-                //        + getName()
-                //        + " for tile: "
-                //        + mapTile);
+                Log.d(TAG, "MapTileModuleLayerBase.removeTileFromQueues() on provider: "
+                        + getName()
+                        + " for tile: "
+                        + mapTile);
             }
             mPending.remove(mapTile);
             mWorking.remove(mapTile);
@@ -252,10 +250,10 @@ public abstract class MapTileModuleLayerBase implements TileLayerConstants {
                 if (state != null) {
                     mWorking.put(state.getMapTile(), state);
                     if (DEBUG_TILE_PROVIDERS) {
-                        //Log.d(TAG, "TileLoader.nextTile() on provider: "
-                        //        + getName()
-                        //       + " adding tile to working queue: "
-                        //        + state.getMapTile());
+                        Log.d(TAG, "TileLoader.nextTile() on provider: "
+                                + getName()
+                                + " adding tile to working queue: "
+                                + state.getMapTile());
                     }
                 }
                 return state;
@@ -276,23 +274,23 @@ public abstract class MapTileModuleLayerBase implements TileLayerConstants {
          */
         protected void tileLoadedExpired(final MapTileRequestState pState,
                 final CacheableBitmapDrawable pDrawable) {
-            //if (DEBUG_TILE_PROVIDERS) {
-                //Log.d(TAG, "TileLoader.tileLoadedExpired() on provider: "
-                //        + getName()
-                //        + " with tile: "
-                //        + pState.getMapTile());
-            //}
+            if (DEBUG_TILE_PROVIDERS) {
+                Log.d(TAG, "TileLoader.tileLoadedExpired() on provider: "
+                        + getName()
+                        + " with tile: "
+                        + pState.getMapTile());
+            }
             removeTileFromQueues(pState.getMapTile());
             pState.getCallback().mapTileRequestExpiredTile(pState, pDrawable);
         }
 
         protected void tileLoadedFailed(final MapTileRequestState pState) {
-            //if (DEBUG_TILE_PROVIDERS) {
-                //Log.i(TAG, "TileLoader.tileLoadedFailed() on provider: "
-                //        + getName()
-                //        + " with tile: "
-                //        + pState.getMapTile());
-            //}
+            if (DEBUG_TILE_PROVIDERS) {
+                Log.i(TAG, "TileLoader.tileLoadedFailed() on provider: "
+                        + getName()
+                        + " with tile: "
+                        + pState.getMapTile());
+            }
             removeTileFromQueues(pState.getMapTile());
             pState.getCallback().mapTileRequestFailed(pState);
         }
@@ -314,10 +312,10 @@ public abstract class MapTileModuleLayerBase implements TileLayerConstants {
                     result = null;
                     result = loadTile(state);
                 } catch (final CantContinueException e) {
-                    //Log.e(TAG, "Tile loader can't continue: " + state.getMapTile(), e);
+                    Log.e(TAG, "Tile loader can't continue: " + state.getMapTile(), e);
                     clearQueue();
                 } catch (final Throwable e) {
-                    //Log.e(TAG, "Error downloading tile: " + state.getMapTile(), e);
+                    Log.e(TAG, "Error downloading tile: " + state.getMapTile(), e);
                 }
 
                 if (result == null) {

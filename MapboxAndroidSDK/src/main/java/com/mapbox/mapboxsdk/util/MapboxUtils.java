@@ -82,7 +82,7 @@ public class MapboxUtils implements MapboxConstants {
     }
 
     public static String markerIconURL(Context context, String size, String symbol, String color) {
-        // Make a string which follows the MapBox Core API spec for stand-alone markers. This relies on the MapBox API
+        // Make a string which follows the Mapbox Core API spec for stand-alone markers. This relies on the Mapbox API
         // for error checking.
         //
         StringBuffer marker = new StringBuffer("pin-");

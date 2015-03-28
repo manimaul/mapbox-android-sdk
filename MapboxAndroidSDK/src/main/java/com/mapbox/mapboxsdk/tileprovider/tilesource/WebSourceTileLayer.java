@@ -146,8 +146,6 @@ public class WebSourceTileLayer extends TileLayer implements MapboxConstants {
             }
 
             return result;
-        } else {
-            Log.d(TAG, "Skipping tile " + aTile.toString() + " due to NetworkAvailabilityCheck.");
         }
         return null;
     }
@@ -163,7 +161,6 @@ public class WebSourceTileLayer extends TileLayer implements MapboxConstants {
      */
     public Bitmap getBitmapFromURL(MapTile mapTile, final String url, final MapTileCache aCache) {
         // We track the active threads here, every exit point should decrement this value.
-        Log.d(getClass().getCanonicalName(), "getBitmapFormURL() called with url = '" + url + "'");
         activeThreads.incrementAndGet();
 
         if (TextUtils.isEmpty(url)) {

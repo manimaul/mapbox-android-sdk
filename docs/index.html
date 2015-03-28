@@ -20,8 +20,6 @@ navigation:
     hash: the-mapview
   - text: Overlays
     hash: overlays
-  - text: Switching layers
-    hash: switching-layers
   - text: Screen rotation
     hash: screen-rotation
   - text: Including SDK JavaDoc
@@ -75,7 +73,7 @@ $(function load() {
 
     <div class='fr dark'><!--
       --><span class='fill-darken1 pad1x round-left inline'>Mapbox Android SDK</span><!--
-      --><span class='pad1x inline round-right keyline-left quiet dark fill-darken2'>{{site.version}}</span>
+      --><span class='pad1x inline round-right keyline-left quiet dark fill-darken2'>0.7.2</span>
     </div>
     Installation
   </div>
@@ -86,7 +84,7 @@ $(function load() {
         <div class='pin-right'>
           <a href='#installation' class='icon x button quiet unround'></a>
         </div>
-        <p>We recommend installing with <a href='http://www.gradle.org'>Gradle</a>. This will automatically install the necessary dependencies and pull the SDK binaries from the Maven Central repository <a href='http://search.maven.org/#artifactdetails%7Ccom.mapbox.mapboxsdk%7Cmapbox-android-sdk%7C{{site.version}}%7Cjar'>Mapbox Android SDK on Maven Central</a>.</p>
+        <p>We recommend installing with <a href='http://www.gradle.org'>Gradle</a>. This will automatically install the necessary dependencies and pull the SDK binaries from the Maven Central repository <a href='http://search.maven.org/#artifactdetails%7Ccom.mapbox.mapboxsdk%7Cmapbox-android-sdk%7C0.7.2%7Cjar'>Mapbox Android SDK on Maven Central</a>.</p>
         <p>To install the current <strong>stable</strong> version add this to your <code>build.gradle</code>:</p>
 
 {% highlight groovy %}
@@ -95,7 +93,7 @@ repositories {
 }
 
 dependencies {
-    compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:{{site.version}}@aar'){
+    compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:0.7.2@aar'){
         transitive=true
     }
 }
@@ -111,7 +109,7 @@ repositories {
 }
 
 dependencies {
-    compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:{{site.snapshot}}@aar'){
+    compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:0.7.3-SNAPSHOT@aar'){
         transitive=true
     }
 }
@@ -131,11 +129,11 @@ dependencies {
         <ol>
           <li>Stable / Supported.</li>
             <ul>
-                <li>Currently <code>{{site.version}}</code></li>
+                <li>Currently <code>0.7.2</code></li>
             </ul>
           <li>SNAPSHOT</li>
             <ul>
-                <li>Currently <code>{{site.snapshot}}</code></li>
+                <li>Currently <code>0.7.3-SNAPSHOT</code></li>
             </ul>
           <li>Source</li>
         </ol>
@@ -157,7 +155,7 @@ dependencies {
 <dependency>
     <groupId>com.mapbox.mapboxsdk</groupId>
     <artifactId>mapbox-android-sdk</artifactId>
-    <version>{{site.version}}</version>
+    <version>0.7.2</version>
     <type>apklib</type>
 </dependency>
 {% endhighlight %}
@@ -315,13 +313,6 @@ class AnyOverlay extends Overlay{
 }
 {% endhighlight %}
 
-<h2 id='switching-layers'>Switching layers <em>(experimental)</em></h2>
-<p>We're making switchable layers as simple as possible in the SDK. You can try toggling between several maps (identified by a valid MapBox ID, a TileJSON file or a zxy image template) using the switchToLayer method.</p>
-
-{% highlight java %}
-mapView.switchToLayer("{{site.defaultid}}");
-{% endhighlight %}
-
 <h2 id='screen-rotation'>Screen rotation</h2>
 <p>By default, every time the screen is rotated, Android will call <code>onCreate</code> and return all states in the app to their inital values. This includes current zoom level and position of the MapView. The simplest way to avoid this is adding this line to your <code>AndroidManifest.xml</code>, inside <code><activity></code>:</p>
 
@@ -333,11 +324,11 @@ android:configChanges="orientation|screenSize|uiMode"
 
 <h2 id='including-sdk-javadoc'>Including SDK JavaDoc</h2>
 
-<p>JavaDocs are automatically generated and distributed with each official and SNAPSHOT release.  They can be downloaded from Maven Central for local viewing and / or integration with an IDE.  The latest official version is available here:</p>
+<p>JavaDocs are automatically generated and distributed with each official and SNAPSHOT release and can be downloaded for local viewing and / or integration with an IDE.</p>
 
 <ul>
-  <li><a href='http://search.maven.org/#artifactdetails%7Ccom.mapbox.mapboxsdk%7Cmapbox-android-sdk%7C{{site.version}}%7Cjar'><code>{{site.version}}</code> Release Overview</a></li>
-  <li><a href='http://search.maven.org/remotecontent?filepath=com/mapbox/mapboxsdk/mapbox-android-sdk/{{site.version}}/mapbox-android-sdk-{{site.version}}-javadoc.jar'><code>{{site.version}}</code> JavaDoc</a></li>
+  <li><a href="http://search.maven.org/#search|ga|1|mapbox" target="_blank">Official Release</a></li>
+  <li><a href="https://oss.sonatype.org/content/repositories/snapshots/com/mapbox/mapboxsdk/mapbox-android-sdk/" target="_blank">SNAPSHOT Releases</a></li>
 </ul>
 
 <h2 id='generating-sdk-documentation'>Generating SDK Documentation (aka JavaDoc)</h2>

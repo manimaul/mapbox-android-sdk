@@ -137,6 +137,9 @@ public class ItemizedIconOverlay extends ItemizedOverlay {
 
     public boolean removeItem(final Marker item) {
         final boolean result = mItemList.remove(item);
+        if (getFocus() == item) {
+            setFocus(null);
+        }
         if (result) {
             onItemRemoved(item);
         }

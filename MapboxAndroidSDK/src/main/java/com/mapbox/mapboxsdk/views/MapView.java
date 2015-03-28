@@ -74,7 +74,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class MapView extends ViewGroup implements MapViewConstants, MapEventsReceiver, MapboxConstants {
 
-    private static final String TAG = "MapBox MapView";
+    private static final String TAG = "Mapbox MapView";
 
     /**
      * The default marker Overlay, automatically added to the view to add markers directly.
@@ -420,6 +420,14 @@ public class MapView extends ViewGroup implements MapViewConstants, MapEventsRec
      * Select a marker, showing a tooltip if the marker has content that would appear within it.
      */
     public void selectMarker(final Marker marker) {
+        selectMarker(marker, true);
+    }
+
+    /**
+     * Select a marker, showing a tooltip if display_bubble is set to true and
+     * the marker has content that would appear within it.
+     */
+    public void selectMarker(final Marker marker, final boolean displayBubble) {
         InfoWindow toolTip = marker.getToolTip(MapView.this);
 
         if (mMapViewListener != null) {
@@ -431,7 +439,9 @@ public class MapView extends ViewGroup implements MapViewConstants, MapEventsRec
                 mMapViewListener.onShowMarker(MapView.this, marker);
             }
             currentTooltip = toolTip;
-            marker.showBubble(currentTooltip, MapView.this, true);
+            if (displayBubble) {
+                marker.showBubble(currentTooltip, MapView.this, true);
+            }
         }
     }
 

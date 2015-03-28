@@ -18,7 +18,7 @@ import com.mapbox.mapboxsdk.views.util.Projection;
 
 public class RotatedMapTestFragment extends Fragment {
 
-    private static final String TAG = "RotatedMapTestFragment";
+    private static final String TAG = "RotatedMapTest";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

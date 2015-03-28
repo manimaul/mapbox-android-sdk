@@ -2,20 +2,16 @@ package com.mapbox.mapboxsdk.tileprovider;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
-
 import com.mapbox.mapboxsdk.geometry.BoundingBox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.tileprovider.modules.MapTileModuleLayerBase;
 import com.mapbox.mapboxsdk.tileprovider.modules.NetworkAvailabilityCheck;
 import com.mapbox.mapboxsdk.tileprovider.tilesource.ITileLayer;
 import com.mapbox.mapboxsdk.util.BitmapUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 import uk.co.senab.bitmapcache.CacheableBitmapDrawable;
 
 /**
@@ -119,7 +115,7 @@ public class MapTileLayerArray extends MapTileLayerBase {
     public Drawable getMapTile(final MapTile pTile, final boolean allowRemote) {
         //       Log.d(TAG, "getMapTile() with pTile (CacheKey) = '" + pTile.getCacheKey() + "'; allowRemote = '" + allowRemote + "'");
         if (tileUnavailable(pTile)) {
-            Log.d(TAG, "MapTileLayerArray.getMapTile() tileUnavailable: " + pTile);
+//            Log.d(TAG, "MapTileLayerArray.getMapTile() tileUnavailable: " + pTile);
             return null;
         }
 

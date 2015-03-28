@@ -122,15 +122,6 @@ class AnyOverlay extends Overlay{
 }
 ```
 
-### Switching layers *(experimental)*
-
-You can toggle between several maps (identified by a valid Mapbox ID, a TileJSON file
-or a zxy image template) using the switchToLayer method
-
-```java
-mapView.switchToLayer("examples.map-vyofok3q");
-```
-
 ### Screen rotation
 
 By default, every time the screen is rotated, Android will call `onCreate`
@@ -147,7 +138,7 @@ more information on these methods
 
 ### More Examples Via TestApp
 
-The Mapbox Android SDK is actually an [Android Library Module](https://developer.android.com/tools/projects/index.html#LibraryModules), 
+The Mapbox Android SDK is actually an [Android Library Module](https://developer.android.com/tools/projects/index.html#LibraryModules),
 which means in order to test it out in an emulator or a device during development a [Test Module](https://developer.android.com/tools/projects/index.html#testing) is needed.  We call this test module
 the **TestApp**.  It contains many different examples of new functionality or just ways to do certain things.  We highly recommend checking it out.
 

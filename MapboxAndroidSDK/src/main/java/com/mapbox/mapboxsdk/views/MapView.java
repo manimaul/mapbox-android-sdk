@@ -405,6 +405,9 @@ public class MapView extends ViewGroup implements MapViewConstants, MapEventsRec
             defaultMarkerList.add(marker);
             setDefaultItemizedOverlay();
         } else {
+            if (!getOverlays().contains(defaultMarkerOverlay)) {
+                addItemizedOverlay(defaultMarkerOverlay);
+            }
             defaultMarkerOverlay.addItem(marker);
         }
         marker.addTo(this);
@@ -419,6 +422,9 @@ public class MapView extends ViewGroup implements MapViewConstants, MapEventsRec
             defaultMarkerList.addAll(markers);
             setDefaultItemizedOverlay();
         } else {
+            if (!getOverlays().contains(defaultMarkerOverlay)) {
+                addItemizedOverlay(defaultMarkerOverlay);
+            }
             defaultMarkerOverlay.addItems(markers);
         }
         for (Marker marker : markers) {

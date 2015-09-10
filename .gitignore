@@ -11,7 +11,7 @@ build/
 src/.idea/
 .gradle/
 test/assets/
-
+_site/
 local.properties
 *.iml
 .DS_Store

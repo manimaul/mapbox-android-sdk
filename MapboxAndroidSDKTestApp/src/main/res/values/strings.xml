@@ -21,9 +21,10 @@
     <string name="mbTilesTestMap">MBTiles Map</string>
     <string name="pathTestMap">PathOverlay</string>
     <string name="bingTestMap">Bing Test Map</string>
-    <string name="mapbox_id_street">examples.map-i87786ca</string>
-    <string name="mapbox_id_satellite">brunosan.map-cyglrrfu</string>
-    <string name="mapbox_id_terrain">examples.map-zgrqqx0w</string>
+    <string name="draggableMarkersTestMap">Draggable Markers</string>
+    <string name="mapbox_id_street">mapbox.streets</string>
+    <string name="mapbox_id_satellite">mapbox.satellite</string>
+    <string name="mapbox_id_terrain">mapbox.outdoors</string>
     <string name="drawerOpen">Open Nav Drawer</string>
     <string name="drawerClose">Close Nav Drawer</string>
     <string name="dataOn">Data On</string>
@@ -37,5 +38,7 @@
     <string name="animatedMapButtonText">Animate</string>
     <string name="testAccessToken">pk.eyJ1IjoiYmxlZWdlIiwiYSI6IkRGLTFPU00ifQ.qJpq3jytAL9A-z_tkNypqg</string>
     <string name="customInfoWindowOnTouchMessage">Hey, I just customized the CustomInfoWindows\'s onTouchListener()!</string>
+    <string name="navigationdrawer_open">open</string>
+    <string name="navigationdrawer_close">close</string>
 
 </resources>

@@ -56,13 +56,15 @@ a [ZXY image template](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames).
 ```java
 MapView mapView = new MapView(context);
 mapView.setAccessToken("Your Mapbox Access Token");
-mapView.setTileSource(new MapboxTileLayer("examples.map-vyofok3q"));
+mapView.setTileSource(new MapboxTileLayer("mapbox.streets"));
 ```
 
 And set it as the current view like this:
 ```java
 this.setContentView(mapView);
 ```
+
+**Note: Markers and polygons that exist as part of your Mapbox-hosted map will not automatically draw.**  Please see the following sections for how to add these features programatically.
 
 ### Overlays
 
